@@ -71,7 +71,7 @@ $ yarn build            # Generates Production *dist* distribution index.html, b
 
 <br>
 
-> See additional [development dependencies](https://github.com/rounding8/react-babel7-webpack-boilerplate/blob/master/package.json#L32-L43)
+> See additional [development dependencies](https://github.com/rounding8/mf-tech-exercise/blob/master/package.json#L31-L42)
 
 <br>
 
