@@ -1,0 +1,48 @@
+{
+  "name": "mf-tech-exercise",
+  "version": "0.1.0",
+  "description": "SPA that displays social media platform API request data",
+  "homepage": "https://github.com/rounding8/mf-tech-exercise",
+  "license": "MIT",
+  "author": "Raven N. Allan",
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rounding8/mf-tech-exercise"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development"
+  },
+  "dependencies": {
+    "@babel/polyfill": "7.0.0",
+    "prop-types": "15.6.2",
+    "react": "16.6.3",
+    "react-dom": "16.6.3"
+  },
+  "devDependencies": {
+    "@babel/core": "7.1.6",
+    "@babel/plugin-proposal-class-properties": "7.1.0",
+    "@babel/preset-env": "7.1.6",
+    "@babel/preset-react": "7.0.0",
+    "@babel/register": "7.0.0",
+    "babel-loader": "8.0.4",
+    "html-webpack-plugin": "3.2.0",
+    "webpack": "4.26.0",
+    "webpack-cli": "3.1.2",
+    "webpack-dev-server": "3.1.10"
+  },
+  "engines": {
+    "node": ">= 10",
+    "yarn": ">= 1"
+  },
+  "private": true
+}
