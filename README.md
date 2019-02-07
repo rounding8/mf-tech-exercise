@@ -62,12 +62,12 @@ $ yarn build            # Generates Production *dist* distribution index.html, b
 
 ### Dependencies
 
-| Resource                                                               | npm                                                            | Description / Implementation                              |
-|------------------------------------------------------------------------|----------------------------------------------------------------|-----------------------------------------------------------|
-| [Polyfill](https://babeljs.io/docs/usage/polyfill)                     | [babel-polyfill](https://www.npmjs.com/package/babel-polyfill) | Dependency for Authentication oidc-client-js library      |
-| [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html) | [prop-types](https://www.npmjs.com/package/prop-types)         | Runtime type checking for React props and similar objects |
-| [react](https://reactjs.org)                                           | [react](https://www.npmjs.com/package/react)                   | A JavaScript library for building user interfaces         |
-| [ReactDOM](https://reactjs.org/docs/react-dom.html)                    | [react-dom](https://www.npmjs.com/package/react-dom)           | DOM-specific methods used at top level of application     |
+| Resource                                                               | npm                                                              | Description / Implementation                                |
+|------------------------------------------------------------------------|------------------------------------------------------------------|-------------------------------------------------------------|
+| [Polyfill](https://babeljs.io/docs/usage/polyfill)                     | [@babel/polyfill](https://www.npmjs.com/package/@babel/polyfill) | Provides polyfills necessary for a full ES2015+ environment |
+| [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html) | [prop-types](https://www.npmjs.com/package/prop-types)           | Runtime type checking for React props and similar objects   |
+| [react](https://reactjs.org)                                           | [react](https://www.npmjs.com/package/react)                     | A JavaScript library for building user interfaces           |
+| [ReactDOM](https://reactjs.org/docs/react-dom.html)                    | [react-dom](https://www.npmjs.com/package/react-dom)             | DOM-specific methods used at top level of application       |
 
 <br>
 
