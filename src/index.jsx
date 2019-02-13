@@ -14,15 +14,13 @@ const App = {
     init: function() {
         console.log('=> App.init()');
 
-        // Initialize Application User
-        // App.User = {};
-
         // Initialize Application State
         App.State = {
             isAuthorized: false
         };
 
         // Load the auth2 library and API client library
+        // ref: https://developers.google.com/youtube/v3/quickstart/js
         gapi.load('client:auth2', function() {
             // Initializes the API client library and sets up sign-in state listeners
             gapi.client.init({
@@ -44,8 +42,14 @@ const App = {
 
         const content = (
             <React.Fragment>
-                <Menu app={App} isAuthorized={App.State['isAuthorized']} />
-                <Home app={App} isAuthorized={App.State['isAuthorized']} />
+                <section className="hero is-link is-fullheight-with-navbar">
+                    <Menu app={App} isAuthorized={App.State['isAuthorized']} />
+                    <div className="hero-body">
+                        <div className="container has-text-centered">
+                            <Home app={App} isAuthorized={App.State['isAuthorized']} />
+                        </div>
+                    </div>
+                </section>
             </React.Fragment>
         );
 
@@ -60,8 +64,6 @@ const App = {
 
     handleAuthBtnClick: function() {
         // if auth => sign user out, if unauth => init login sequence
-        console.log('this.handleAuthBtnClick()');
-
         const toggledState = !App.State['isAuthorized'];
 
         if (!App.State['isAuthorized']) {

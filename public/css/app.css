@@ -4,10 +4,6 @@
 Primary style
 
 -------------------------------- */
-html {
-    color: #534d2d;
-    background-color: #eee;
-}
 
 
 /* -------------------------------- 
@@ -15,4 +11,26 @@ html {
 Main Components 
 
 -------------------------------- */
+#navbar, .section {
+    background: white;
+    color: black;
+}
 
+section h2 {
+    font-size: 2em;
+    color: red;
+}
+
+section h3 {
+    font-size: 1.2em;
+    color: gray;
+}
+
+.media {
+    width: 98%;
+}
+
+.media-content .content p {
+    margin: 5px 10px;
+    word-wrap: break-word;
+}
