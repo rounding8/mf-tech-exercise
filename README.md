@@ -16,21 +16,26 @@ $ yarn                                                              # Install Ap
 $ yarn start                                                        # Execute in "Development" mode
 ```
 
-> this is currently in progress, thwarted by my slow internet connection in the boonies of eastern WA w/ 🌨💨❄️
+<br>
 
-Here are a couple screenshots w/ it's current functionality, which has a Bulma Navmenu for users to login/authorize this app to access the Youtube Data API
+When Application initializes user must login using their Youtube/Google account in order to load data from API
 
-I created a new Google/Youtube/Gmail account in order to build out this app, however because of my slow connection I haven't been able to add many videos to the account's playlist(s) yet.. stay tuned
+> i used a newly-created, demo account: `mftechexercise@gmail.com` that I loaded w/ (25) random subscriptions on [Youtube](https://youtube.com)
 
-> When Application initializes user must login using their Youtube/Google account in order to load data from API; i logged on using newly-created account `mftechexercise@gmail.com`
+After authenticating, the Home screen will load the user's (first) channel info, and subscriptions:
 
-![screenshot-step-1](https://github.com/rounding8/mf-tech-exercise/blob/master/docs/screenshot-step-1.jpg)
+![screenshot-v1.0.0](https://github.com/rounding8/mf-tech-exercise/blob/master/docs/screenshot-v1.0.0.jpg)
 
-> Current Output following Auth:
+### Assumptions / Known Behavior
 
-![screenshot-step-2](https://github.com/rounding8/mf-tech-exercise/blob/master/docs/screenshot-step-2.jpg)
+This Application is very MVP (demo, and all) so there's some things to keep in mind w/ its current functionality and data handling:
 
+- It will load the user's first channel only; if the user has multiple channels, [only the first result's data is used](https://github.com/rounding8/mf-tech-exercise/blob/master/src/container/home/index.jsx#L89)
+  - this is partly because my poor internet connection was too frustrating to try and create multiple channels for this demo account, but also because the UX for Youtube's Settings is a bit whack
 
+- I would've liked to add a pagination feature, but demo/time and all; thus, [the home screen will only load up to 50 results](https://github.com/rounding8/mf-tech-exercise/blob/master/src/container/home/index.jsx#L114)
+
+<br>
 <br>
 
 ## Deployment
