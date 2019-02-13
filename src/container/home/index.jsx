@@ -3,7 +3,7 @@ import axios     from 'axios';
 import PropTypes from 'prop-types';
 import React     from 'react';
 
-// import Columns from 'component/columns';
+import Media from 'component/media';
 
 export default class Home extends React.Component {
     static propTypes = {
@@ -11,16 +11,55 @@ export default class Home extends React.Component {
         isAuthorized : PropTypes.bool.isRequired
     }
 
+    state = {
+        channelLoaded     : false,
+        channelData       : {},
+        subscriptionsData : {}
+    }
+
     componentDidMount() {
+        // if user is already authorized this will load YT API data on 1st render
         if (this.props.isAuthorized) {
-            this.getSubscriptions();
+            this.getChannel();
+            this.updateChannelLoadedState(true);
         }
     }
 
     componentDidUpdate() {
-        if (this.props.isAuthorized) {
-            this.getSubscriptions();
+        // if user isn't authorized this will load YT API data on 2nd render (only) following login
+        if (this.props.isAuthorized && !this.state.channelLoaded) {
+            this.getChannel();
+            this.updateChannelLoadedState(true);
         }
+    }
+
+    composeChannel(channel) {
+        return (
+            <React.Fragment>
+                <h1 className="title">{channel['title']}</h1>
+                <h2 className="subtitle">{channel['description']}</h2>
+                <table className="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Views</th>
+                            <th>Comments</th>
+                            <th>Subscribers</th>
+                            <th>Videos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{channel['id']}</td>
+                            <td>{channel['views']}</td>
+                            <td>{channel['comments']}</td>
+                            <td>{channel['subscribers']}</td>
+                            <td>{channel['videos']}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </React.Fragment>
+        );
     }
 
     composeSearchByKeyword() {
@@ -36,81 +75,89 @@ export default class Home extends React.Component {
         );
     }
 
-    getChannel = id => {
-        const getUploads = this.getUploads;
-
-        gapi.client.youtube.channels.list({
-            part : 'snippet,contentDetails,statistics',
-            id   : id
-        }).execute(function(response) {
-            var channels = response.items;
-            if (channels.length > 0) {
-                // getUploads(channels[0].contentDetails.relatedPlaylists.uploads);
-            } else {
-                // todo: update later to display in DOM
-                console.log('no channels found!');
-            }
-        });
+    composeSubscriptions = data => {
+        return <Media data={data} />;
     }
 
-    getSubscriptions = token => {
-        const getChannel       = this.getChannel;
+    getChannel = () => {
         const getSubscriptions = this.getSubscriptions;
 
-        var request = {
-            part       : 'id,contentDetails,subscriberSnippet,snippet',
-            mine       : true,
-            maxResults : 50
-        };
+        gapi.client.youtube.channels.list({
+            'part' : 'snippet,contentDetails,statistics',
+            'mine' : true
+        }).then(function(response) {
+            const channel = response.result.items[0];
 
-        if (token) {
-            request.pageToken = token;
-        }
+            const channelInfo = {
+                id          : channel.id,
+                title       : channel.snippet.title,
+                description : channel.snippet.description,
+                comments    : channel.statistics.commentCount,
+                subscribers : channel.statistics.subscriberCount,
+                videos      : channel.statistics.videoCount,
+                views       : channel.statistics.viewCount
+            };
 
-        gapi.client.youtube.subscriptions.list(request).execute(function(response) {
-            console.log(response);
-
-            for (var i = 0; i < response.items.length; i++) {
-                var itm = response.items[i];
-                var cid = itm.snippet.resourceId.channelId;
-
-                getChannel(cid);
-            }
-
-            var next = response.nextPageToken;
-
-            if (next) {
-                getSubscriptions(next);
-            }
+            getSubscriptions(channelInfo);
         });
     }
 
-    getUploads = pid => {
-        // todo: add link to README & here from website this is from (on laptop files..)
-        gapi.client.youtube.playlistItems.list({
-            part       : 'snippet,contentDetails',
-            playlistId : pid,
-            maxResults : 50
-        }).execute(function(response) {
-            if (response) {
-                const itm   = response.items[0];
-                const thumb = itm.snippet.thumbnails.medium;
+    getSubscriptions = channel => {
+        const parseSubscriptionsData = this.parseSubscriptionsData;
 
-                const head = "<a href='https://www.youtube.com/watch?v=" + itm.snippet.resourceId.videoId + "' target='_blank'>";
-                const img  = "<img src='" + thumb.url + "' width=" + thumb.width + " height=" + thumb.height + ">";
-                const tail = "</a>";
+        this.setState({
+            channelData: channel
+        });
 
-                console.log(head + img + tail);
-            }
+        gapi.client.youtube.subscriptions.list({
+            'part'       : 'contentDetails,snippet',
+            'maxResults' : 50,
+            'mine'       : true
+        }).then(function(response) {
+            parseSubscriptionsData(response.result.items);
+        });
+    }
+
+    parseSubscriptionsData = subscriptions => {
+        let subscriptionsData = {
+            count         : subscriptions.length,
+            subscriptions : []
+        };
+
+        // Format remaining raw data into pretty, ready-to-go {} data
+        for (const s in subscriptions) {
+            const subscription = subscriptions[s].snippet;
+
+            // FYI these will be unordered; create ids for click/sort/etc handling functionality
+            subscriptionsData['subscriptions'].push({
+                desc     : subscription.description,
+                thumbUrl : subscription.thumbnails.default,
+                title    : subscription.title
+            });
+        }
+
+        this.setState({
+            subscriptionsData: subscriptionsData
+        });
+    }
+
+    updateChannelLoadedState = state => {
+        this.setState({
+            channelLoaded: state
         });
     }
 
     render() {
-        const content = this.props.isAuthorized ? this.composeSearchByKeyword() : null;
+        const channelContent       = this.props.isAuthorized ? this.composeChannel(this.state.channelData)             : null;
+        const subscriptionsContent = this.props.isAuthorized ? this.composeSubscriptions(this.state.subscriptionsData) : null;
+
+        // const searchContent = this.props.isAuthorized ? this.composeSearchByKeyword() : null;
 
         return (
             <div>
-                {content}
+                {channelContent}
+                {subscriptionsContent}
+                {null}
             </div>
         );
     }
