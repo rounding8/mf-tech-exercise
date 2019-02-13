@@ -123,6 +123,7 @@ $ yarn build            # Generates Production *dist* distribution index.html, b
 
 | Version | Date     | Commit                                                                                                   | Description |
 |---------|----------|----------------------------------------------------------------------------------------------------------|-------------|
+| 1.0.0   | 02-13-19 | [73060af](https://github.com/rounding8/mf-tech-exercise/commit/73060af2bbff61a6bfe4749cba252562e9813eba) | Initial Release |
 | 0.1.0   | 02-11-19 | [2822ecc](https://github.com/rounding8/mf-tech-exercise/commit/2822ecc7cb451f54ed55f73b5ab627950e0b12c7) | Feature - Social Media API Handling |
 | 0.0.0   | 02-06-19 | [ac4f666](https://github.com/rounding8/mf-tech-exercise/commit/ac4f666f49ce797ebe83d68b68d524069bb29f75) | 🎉  Initial commit |
 
