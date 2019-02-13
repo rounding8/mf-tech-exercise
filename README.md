@@ -54,6 +54,7 @@ $ yarn build            # Generates Production *dist* distribution index.html, b
   |- bundle.js          // Single webpack compiled source script of Application for Production
   |- styles.css         // Single webpack compiled source CSS of Application for Production
   |- ...                // Bundled assets to be included w/ dist (e.g. favicon.ico, custom font files, etc.)
+|- docs/                // Project Documentation, (screenshots) assets, etc.
 |- node_modules/        // Packages installed via Yarn (dependencies & devDependencies)
 |- public               -- Public assets
   |- css
@@ -61,14 +62,16 @@ $ yarn build            # Generates Production *dist* distribution index.html, b
     |- ...
   |- html
     |- index.html       // Main HTML Source
+  |- img
 |- src                  -- React Components
   |- component          // Generic reuseable component classes (header, menu, dropdown, table, lists, etc.)
-    |- 
-    |- <TBD>
-    |- 
+    |- columns          // https://bulma.io/documentation/columns/basics
+    |- media            // https://bulma.io/documentation/layout/media-object
   |- container          // Main Section Parent Component Class Containers
-    |- home
-      |- index.jsx
+    |- home             // Landing Page content (i.e. User's Youtube Channel, Subscriptions, etc.)
+    |- menu             // Navbar
+  |- session
+      |- settings.js    // Application Execution Settings per Environment (Production, Development, etc.)
   |- index.jsx          // Main webpack Entry
 |- .gitignore           // Git repository tracking files & folders to ignore
 |- LICENSE
