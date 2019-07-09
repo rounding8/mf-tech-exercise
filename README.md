@@ -20,7 +20,7 @@ $ yarn start                                                        # Execute in
 
 When Application initializes user must login using their Youtube/Google account in order to load data from API
 
-> i used a newly-created, demo account: `mftechexercise@gmail.com` that I loaded w/ (25) random subscriptions on [Youtube](https://youtube.com)
+> i used a demo email account to load (25) random subscriptions on [Youtube](https://youtube.com)
 
 After authenticating, the Home screen will load the user's (first) channel info, and subscriptions:
 
@@ -50,7 +50,7 @@ $ yarn build            # Generates Production *dist* distribution index.html, b
 
 ```
 |- dist                 -- Webpack build of full-stack application
-  |- index.html         // Single HTML Index File for Testing Progress SPA
+  |- index.html         // Single HTML Index File for SPA
   |- bundle.js          // Single webpack compiled source script of Application for Production
   |- styles.css         // Single webpack compiled source CSS of Application for Production
   |- ...                // Bundled assets to be included w/ dist (e.g. favicon.ico, custom font files, etc.)
